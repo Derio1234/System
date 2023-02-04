@@ -1,0 +1,10 @@
+name: RandomTP
+version: '${project.version}'
+main: de.derio.randomtp.Main
+api-version: 1.19
+authors: [ Derio ]
+commands:
+  randomteleport:
+    permission: rtp.use
+    aliases:
+      - rtp
