@@ -30,16 +30,14 @@ public class RTP implements CommandExecutor {
         String leftcooldown = String.valueOf((int) ((data.getCooldown() - System.currentTimeMillis()) / 1000));
                 if (p.hasPermission("rtp.use")) {
                     if (data.getCooldown() > System.currentTimeMillis()) {
-                        try {
+
                             p.sendMessage(msg.getMsgDE("msg.oncooldown").replace("[0]",leftcooldown).replace("&", "§"));
-                        }catch (IllegalArgumentException ignored){
-                        }
 
                         return false;
                     }
                     for (int i = 320; i >= -63; i--) {
                         if (new Location(p.getWorld(), x, i - 1, z).getBlock().getType() == Material.AIR) {
-                            continue;
+                            
                         } else {
                             Chunk chunk = new Location(p.getWorld(), x, y, z).getChunk();
                             chunk.load(true);
@@ -50,10 +48,9 @@ public class RTP implements CommandExecutor {
                             i = -63;
                             p.sendMessage(msg.getMsgDE("msg.onteleport").replace("&","§"));
                             new BukkitRunnable() {
-
                                 @Override
                                 public void run() {
-                                    chunk.load(false);
+                                    chunk.unload();
                                 }
                             }.runTaskLater(Main.getPlugin(), 60);
                         }
